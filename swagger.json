@@ -1,0 +1,102 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Email Verificator",
+        "description": "This minimalistic API can create you temporary Emails and Query the Inbox for them",
+        "version": "0.0.1"
+    },
+    "servers": [
+        {
+            "url": "https://emailverificator.jjtv.repl.co/"
+        },
+        {
+            "url": "http://localhost:8080/"
+        }
+    ],
+    "tags": [
+        {
+            "name": "email",
+            "description": "Email Querys",
+            "externalDocs": {
+                "description": "Find out more",
+                "url": "http://swagger.io"
+            }
+        }
+    ],
+    "paths": {
+        "/api/new": {
+            "get": {
+                "tags": [
+                    "email"
+                ],
+                "summary": "Get a New Email",
+                "description": "Request a new Temporary Email",
+                "operationId": "getNewEmail",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Email"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/mailbox/{email}": {
+            "get": {
+                "tags": [
+                    "email"
+                ],
+                "summary": "Get Inbox for Email",
+                "description": "Query the Inbox for the Provided Email Address",
+                "operationId": "getEmailInbox",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "description": "Email you want to query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array"
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "type": "array"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Email": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "test@gmail.com"
+                    }
+                }
+            }
+        }
+    }
+}
